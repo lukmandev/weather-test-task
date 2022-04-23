@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/codica-test-task/static/js/main.7f85e6f1.js",
+    "static/js/614.15559771.chunk.js": "/codica-test-task/static/js/614.15559771.chunk.js",
+    "static/js/439.ac67dafd.chunk.js": "/codica-test-task/static/js/439.ac67dafd.chunk.js",
+    "static/js/332.d6b9a58e.chunk.js": "/codica-test-task/static/js/332.d6b9a58e.chunk.js",
+    "static/js/682.16eeca4d.chunk.js": "/codica-test-task/static/js/682.16eeca4d.chunk.js",
+    "static/js/876.4bbda733.chunk.js": "/codica-test-task/static/js/876.4bbda733.chunk.js",
+    "static/js/218.756f0b3e.chunk.js": "/codica-test-task/static/js/218.756f0b3e.chunk.js",
+    "index.html": "/codica-test-task/index.html",
+    "main.7f85e6f1.js.map": "/codica-test-task/static/js/main.7f85e6f1.js.map",
+    "614.15559771.chunk.js.map": "/codica-test-task/static/js/614.15559771.chunk.js.map",
+    "439.ac67dafd.chunk.js.map": "/codica-test-task/static/js/439.ac67dafd.chunk.js.map",
+    "332.d6b9a58e.chunk.js.map": "/codica-test-task/static/js/332.d6b9a58e.chunk.js.map",
+    "682.16eeca4d.chunk.js.map": "/codica-test-task/static/js/682.16eeca4d.chunk.js.map",
+    "876.4bbda733.chunk.js.map": "/codica-test-task/static/js/876.4bbda733.chunk.js.map",
+    "218.756f0b3e.chunk.js.map": "/codica-test-task/static/js/218.756f0b3e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.7f85e6f1.js"
+  ]
+}
