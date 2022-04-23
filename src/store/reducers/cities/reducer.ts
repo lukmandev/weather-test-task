@@ -11,7 +11,9 @@ type sliceType = {
 	detailCity: DetailCity | null;
 	detailCityError: null | string;
 	detailCityLoaded: boolean;
-	myCities: City[];
+	myCities: number[];
+	myCitiesData: City[];
+	myCitiesLoaded: boolean;
 };
 
 const initialState: sliceType = {
@@ -22,6 +24,8 @@ const initialState: sliceType = {
 	detailCityError: null,
 	detailCityLoaded: false,
 	myCities: getCitiesFromLC(),
+	myCitiesData: [],
+	myCitiesLoaded: false,
 };
 
 const citiesSlice = createSlice({
@@ -52,9 +56,25 @@ const citiesSlice = createSlice({
 		) {
 			state.detailCityError = action.payload;
 		},
-		addToStartToMyCities(state, action: PayloadAction<City>) {
-			state.myCities = [action.payload, ..._.uniqBy(state.myCities, 'id')];
-			localStorage.setItem('my-cities', JSON.stringify(state.myCities));
+		addToStartToMyCities(state, action: PayloadAction<number>) {
+			state.myCities = [
+				...(new Set([
+					action.payload,
+					...state.myCities,
+				]) as unknown as number[]),
+			];
+		},
+		deleteCityFromMyCities(state, action: PayloadAction<number>) {
+			state.myCities = state.myCities.filter((el) => el !== action.payload);
+		},
+		setMyCities(state, action: PayloadAction<sliceType['myCitiesData']>) {
+			state.myCitiesData = action.payload;
+		},
+		setMyCitiesLoaded(
+			state,
+			action: PayloadAction<sliceType['myCitiesLoaded']>
+		) {
+			state.myCitiesLoaded = action.payload;
 		},
 	},
 });
@@ -67,6 +87,9 @@ export const {
 	setDetailCityError,
 	setDetailCityLoaded,
 	addToStartToMyCities,
+	setMyCities,
+	setMyCitiesLoaded,
+	deleteCityFromMyCities,
 } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

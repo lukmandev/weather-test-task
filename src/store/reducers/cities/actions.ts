@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import _ from 'lodash';
+import {AxiosError, AxiosResponse} from 'axios';
 
 import api from '~/http/api';
 import cities from '~/data/cities.json';
@@ -10,8 +11,10 @@ import {
 	setDetailCity,
 	setDetailCityError,
 	setDetailCityLoaded,
+	setMyCities,
+	setMyCitiesLoaded,
 } from './reducer';
-import {AxiosError} from 'axios';
+import {RootState} from '~/store/reducer';
 
 export const fetchCities = createAsyncThunk(
 	'fetchCities',
@@ -78,7 +81,6 @@ export const checkForExistence = createAsyncThunk(
 			},
 			data: null,
 		};
-
 		try {
 			const {data} = await api.get(`/data/2.5/weather?q=${cityTitle}`);
 			returnedData.data = data;
@@ -93,5 +95,30 @@ export const checkForExistence = createAsyncThunk(
 		} finally {
 			return returnedData;
 		}
+	}
+);
+
+export const fetchMyCities = createAsyncThunk(
+	'fetchMyCities',
+	async (__, {dispatch, getState}) => {
+		dispatch(setMyCitiesLoaded(false));
+
+		const {
+			cities: {myCities},
+		} = getState() as RootState;
+
+		const promiseArray: Promise<AxiosResponse>[] = [];
+		myCities.map((elem) => {
+			const request = api.get(`/data/2.5/weather?id=${elem}`);
+			promiseArray.push(request);
+		});
+		const allPromises = await Promise.allSettled(promiseArray);
+		const filteredCities = _.filter(
+			allPromises,
+			(el: any) => el.status && el.value
+		);
+		const fetchedCities = _.map(filteredCities, (el: any) => el.value.data);
+		dispatch(setMyCities(fetchedCities));
+		dispatch(setMyCitiesLoaded(true));
 	}
 );

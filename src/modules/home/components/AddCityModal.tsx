@@ -73,7 +73,7 @@ const AddCityModal = ({open, handleClose}: AddCityModalProps) => {
 		if (error.hasError) {
 			setError('title', {message: error.message});
 		} else {
-			dispatch(addToStartToMyCities(data as unknown as City));
+			dispatch(addToStartToMyCities((data as unknown as City).id));
 			reset();
 			handleClose();
 		}

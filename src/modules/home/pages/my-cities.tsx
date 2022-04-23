@@ -1,11 +1,14 @@
 import {Box, Button, Container, Typography} from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {useAppSelector} from '~/hooks/redux';
+import {useAppDispatch, useAppSelector} from '~/hooks/redux';
+import {fetchMyCities} from '~/store/reducers/cities/actions';
+import {deleteCityFromMyCities} from '~/store/reducers/cities/reducer';
 import {selectCitiesState} from '~/store/reducers/cities/selectors';
 import AddCityModal from '../components/AddCityModal';
 import CityItem from '../components/CityItem';
+import CityItemSkeleton from '../components/CityItem/skeleton';
 
 const useStyles = makeStyles({
 	container: {
@@ -33,21 +36,47 @@ const useStyles = makeStyles({
 const MyCities = () => {
 	const styles = useStyles();
 	const citiesState = useAppSelector(selectCitiesState);
+	const dispatch = useAppDispatch();
 	const [isOpen, setModalOpen] = useState<boolean>(false);
 
+	useEffect(() => {
+		dispatch(fetchMyCities());
+		localStorage.setItem('my-cities', JSON.stringify(citiesState.myCities));
+	}, [citiesState.myCities]);
+
+	const handleDeleteCity = (id: number) => () => {
+		dispatch(deleteCityFromMyCities(id));
+	};
+
 	const outCities = () => {
-		if (!citiesState.myCities.length) {
+		if (citiesState.myCitiesLoaded) {
+			if (!citiesState.myCitiesData.length) {
+				return (
+					<Box className={styles.noDataBox}>
+						<Typography>Вы еще не добавляли городов</Typography>
+					</Box>
+				);
+			}
 			return (
-				<Box className={styles.noDataBox}>
-					<Typography>Вы еще не добавляли городов</Typography>
+				<Box className={styles.gridWrapper}>
+					{citiesState.myCitiesData.map((elem) => (
+						<CityItem
+							canDelete
+							onDelete={handleDeleteCity(elem.id)}
+							item={elem}
+							key={elem.id}
+						/>
+					))}
 				</Box>
 			);
 		}
 		return (
 			<Box className={styles.gridWrapper}>
-				{citiesState.myCities.map((elem, i) => (
-					<CityItem item={elem} key={i} />
-				))}
+				{Array(10)
+					.fill(0)
+					.map((__, i) => (
+						<CityItemSkeleton key={i} />
+					))}
 			</Box>
 		);
 	};
@@ -63,7 +92,7 @@ const MyCities = () => {
 		<Container className={styles.container}>
 			<Box className={styles.topSide}>
 				<Button variant="contained" onClick={handleModalOpen}>
-					OPEN MODAL
+					Добавить модальное окно
 				</Button>
 			</Box>
 			{outCities()}

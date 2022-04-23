@@ -1,13 +1,21 @@
-import {Card, CardActions, CardContent, Typography} from '@mui/material';
+import {
+	Button,
+	Card,
+	CardActions,
+	CardContent,
+	Typography,
+} from '@mui/material';
 import {Link} from 'react-router-dom';
 
 import {City} from '~/types/City';
 
 type CityItemProps = {
 	item: City;
+	canDelete?: boolean;
+	onDelete?: () => void;
 };
 
-const CityItem = ({item}: CityItemProps) => {
+const CityItem = ({item, canDelete, onDelete}: CityItemProps) => {
 	return (
 		<Card sx={{width: '100%', border: `1px solid black`}}>
 			<CardContent>
@@ -42,8 +50,18 @@ const CityItem = ({item}: CityItemProps) => {
 					<br />
 				</Typography>
 			</CardContent>
-			<CardActions>
-				<Link to={`/weather/${item.id}`}>Посмотреть полную информацию</Link>
+			<CardActions style={{display: 'block'}}>
+				<Link
+					to={`/weather/${item.id}`}
+					style={{display: 'block', marginBottom: canDelete ? 10 : 0}}
+				>
+					Посмотреть полную информацию
+				</Link>
+				{canDelete && (
+					<Button variant="contained" onClick={onDelete}>
+						Delete
+					</Button>
+				)}
 			</CardActions>
 		</Card>
 	);
