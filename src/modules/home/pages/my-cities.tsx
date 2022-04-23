@@ -23,6 +23,11 @@ const useStyles = makeStyles({
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 	},
+	noDataBox: {
+		width: '100%',
+		display: 'grid',
+		placeItems: 'center',
+	},
 });
 
 const MyCities = () => {
@@ -32,7 +37,11 @@ const MyCities = () => {
 
 	const outCities = () => {
 		if (!citiesState.myCities.length) {
-			return <Typography>There is no cities add it</Typography>;
+			return (
+				<Box className={styles.noDataBox}>
+					<Typography>Вы еще не добавляли городов</Typography>
+				</Box>
+			);
 		}
 		return (
 			<Box className={styles.gridWrapper}>

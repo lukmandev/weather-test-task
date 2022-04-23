@@ -75,6 +75,7 @@ const AddCityModal = ({open, handleClose}: AddCityModalProps) => {
 		} else {
 			dispatch(addToStartToMyCities(data as unknown as City));
 			reset();
+			handleClose();
 		}
 	};
 	return (
