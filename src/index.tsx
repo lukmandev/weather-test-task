@@ -4,7 +4,6 @@ import {ThemeProvider} from '@mui/styles';
 import {Provider} from 'react-redux';
 import {StyledEngineProvider} from '@mui/material/styles';
 
-import './styles/index.css';
 import App from './App';
 import theme from './utils/theme';
 import store from '~/store/reducer';

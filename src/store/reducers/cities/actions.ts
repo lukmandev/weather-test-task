@@ -22,9 +22,7 @@ export const fetchCities = createAsyncThunk(
 		let fetchedCities: any = [];
 		for (let i = 0; i < cities.length; i++) {
 			const city = cities[i];
-			const promise = api.get(
-				`/data/2.5/weather?q=${city.name}&units=metric&lang=ru`
-			);
+			const promise = api.get(`/data/2.5/weather?q=${city.name}&lang=ru`);
 			fetchedCitiesPromises.push(promise);
 		}
 		try {
@@ -36,7 +34,8 @@ export const fetchCities = createAsyncThunk(
 			fetchedCities = _.map(filteredCities, (el: any) => el.value.data);
 		} catch (e) {}
 		const sortedCities = _.uniqBy(fetchedCities, (e: any) => e.id);
-		!sortedCities.length && dispatch(setCitiesError('Some error happened'));
+		!sortedCities.length &&
+			dispatch(setCitiesError('Произошла какая то ошибка'));
 		dispatch(setCities(sortedCities));
 		dispatch(setCitiesLoaded(true));
 	}
@@ -51,9 +50,9 @@ export const fetchCityWeather = createAsyncThunk(
 				data: {
 					coord: {lon, lat},
 				},
-			} = await api.get(`/data/2.5/weather?id=${cityId}&units=metric`);
+			} = await api.get(`/data/2.5/weather?id=${cityId}`);
 			const {data} = await api.get(
-				`/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=metric`
+				`/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely`
 			);
 			dispatch(setDetailCity(data));
 		} catch (e) {
@@ -65,6 +64,34 @@ export const fetchCityWeather = createAsyncThunk(
 			}
 		} finally {
 			dispatch(setDetailCityLoaded(true));
+		}
+	}
+);
+
+export const checkForExistence = createAsyncThunk(
+	'checkForExistence',
+	async (cityTitle: string, __) => {
+		const returnedData = {
+			error: {
+				hasError: false,
+				message: '',
+			},
+			data: null,
+		};
+
+		try {
+			const {data} = await api.get(`/data/2.5/weather?q=${cityTitle}`);
+			returnedData.data = data;
+		} catch (e) {
+			returnedData.error.hasError = true;
+			const error = e as AxiosError;
+			if (error?.response?.status === 404) {
+				returnedData.error.message = 'Такой город не найден';
+			} else {
+				returnedData.error.message = 'Произошла какая то ошибка';
+			}
+		} finally {
+			return returnedData;
 		}
 	}
 );

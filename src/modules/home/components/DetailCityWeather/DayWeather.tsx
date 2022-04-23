@@ -8,8 +8,6 @@ type DayWeatherProps = {
 	dayWeather: DailyEntity;
 };
 
-const commonStyles = {};
-
 const useOtherDayWeatherStyles = makeStyles({
 	wrapper: {
 		width: '100%',
@@ -47,10 +45,10 @@ export const OtherDayWeather = ({dayWeather}: DayWeatherProps) => {
 				className="w-icon"
 			/>
 			<Typography className={styles.tempTitle}>
-				Night - ${dayWeather.temp.night}&#176;C
+				Ночью - ${dayWeather.temp.night}&#176;C
 			</Typography>
 			<Typography className={styles.tempTitle}>
-				Day - ${dayWeather.temp.day}&#176;C
+				Днем - ${dayWeather.temp.day}&#176;C
 			</Typography>
 		</Box>
 	);
@@ -98,10 +96,10 @@ export const TodayWeather = ({dayWeather}: DayWeatherProps) => {
 			<Box>
 				<Box className={styles.day}>{format(dayWeather.dt * 1000, 'eeee')}</Box>
 				<Typography className={styles.tempTitle}>
-					Night - ${dayWeather.temp.night}&#176;C
+					Ночью - ${dayWeather.temp.night}&#176;C
 				</Typography>
 				<Typography className={styles.tempTitle}>
-					Day - ${dayWeather.temp.day}&#176;C
+					Днем - ${dayWeather.temp.day}&#176;C
 				</Typography>
 			</Box>
 		</Box>

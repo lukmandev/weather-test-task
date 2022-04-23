@@ -2,6 +2,7 @@ import {AppBar, Container} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import {ReactNode} from 'react';
 import {Link} from 'react-router-dom';
+
 import {HomeRoutesEnum} from '~/modules/home/routes/enum';
 
 type MainLayoutProps = {
@@ -28,10 +29,10 @@ const MainLayout = ({children}: MainLayoutProps) => {
 			<AppBar position="sticky">
 				<Container className={styles.container}>
 					<Link to={HomeRoutesEnum.HOME} className={styles.myCitiesLink}>
-						Home
+						Главная
 					</Link>
 					<Link to={HomeRoutesEnum.MY_CITIES} className={styles.myCitiesLink}>
-						My Cities
+						Мои города
 					</Link>
 				</Container>
 			</AppBar>

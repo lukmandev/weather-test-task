@@ -1,7 +1,7 @@
 import {Suspense} from 'react';
 import {Routes} from 'react-router-dom';
-import MainLayout from './components/MainLayout';
 
+import MainLayout from './components/MainLayout';
 import SpinLoader from './components/SpinLoader';
 import homeRoutes from './modules/home/routes';
 

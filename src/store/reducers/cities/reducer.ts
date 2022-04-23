@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 import {City, DetailCity} from '~/types/City';
 import {getCitiesFromLC} from '~/utils/get-cities-from-lc';
@@ -10,7 +11,7 @@ type sliceType = {
 	detailCity: DetailCity | null;
 	detailCityError: null | string;
 	detailCityLoaded: boolean;
-	myCities: any[];
+	myCities: City[];
 };
 
 const initialState: sliceType = {
@@ -51,8 +52,9 @@ const citiesSlice = createSlice({
 		) {
 			state.detailCityError = action.payload;
 		},
-		setMyCities(state, action: PayloadAction<sliceType['myCities']>) {
-			state.myCities = action.payload;
+		addToStartToMyCities(state, action: PayloadAction<City>) {
+			state.myCities = [action.payload, ..._.uniqBy(state.myCities, 'id')];
+			localStorage.setItem('my-cities', JSON.stringify(state.myCities));
 		},
 	},
 });
@@ -64,7 +66,7 @@ export const {
 	setDetailCity,
 	setDetailCityError,
 	setDetailCityLoaded,
-	setMyCities,
+	addToStartToMyCities,
 } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

@@ -9,6 +9,7 @@ api.interceptors.request.use(
 		config.params = {
 			...config.params,
 			appid: 'f9a4d9ae1e4c03a60aae940410297e18',
+			units: 'metric',
 		};
 		return config;
 	},

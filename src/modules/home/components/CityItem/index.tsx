@@ -1,10 +1,4 @@
-import {
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	Typography,
-} from '@mui/material';
+import {Card, CardActions, CardContent, Typography} from '@mui/material';
 import {Link} from 'react-router-dom';
 
 import {City} from '~/types/City';
@@ -49,7 +43,7 @@ const CityItem = ({item}: CityItemProps) => {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Link to={`/weather/${item.id}`}>Посмотреть информацию</Link>
+				<Link to={`/weather/${item.id}`}>Посмотреть полную информацию</Link>
 			</CardActions>
 		</Card>
 	);
