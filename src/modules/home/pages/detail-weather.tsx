@@ -38,7 +38,11 @@ const DetailWeather = () => {
 	};
 
 	return (
-		<Container className={styles.container} maxWidth={false}>
+		<Container
+			className={styles.container}
+			maxWidth={false}
+			data-testid="detail-weather-page"
+		>
 			{!citiesState.detailCityLoaded && <SpinLoader />}
 			{outDetailCity()}
 		</Container>

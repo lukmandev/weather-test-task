@@ -2,7 +2,7 @@ import {Card, CardContent, Skeleton} from '@mui/material';
 
 const CityItemSkeleton = () => {
 	return (
-		<Card sx={{width: '100%'}}>
+		<Card sx={{width: '100%'}} data-testid="skeleton">
 			<CardContent>
 				<Skeleton height={90} />
 				<Skeleton height={30} />

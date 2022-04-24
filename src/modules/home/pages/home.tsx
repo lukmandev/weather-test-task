@@ -47,7 +47,7 @@ const Home = () => {
 	};
 
 	return (
-		<Container className={styles.container}>
+		<Container className={styles.container} data-testid="home-page">
 			<Box className={styles.gridContainer}>{outCities()}</Box>
 		</Container>
 	);

@@ -17,7 +17,10 @@ type CityItemProps = {
 
 const CityItem = ({item, canDelete, onDelete}: CityItemProps) => {
 	return (
-		<Card sx={{width: '100%', border: `1px solid black`}}>
+		<Card
+			sx={{width: '100%', border: `1px solid black`}}
+			data-testid="city-item"
+		>
 			<CardContent>
 				<Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
 					Информация

@@ -26,7 +26,7 @@ const MainLayout = ({children}: MainLayoutProps) => {
 	const styles = useStyles();
 	return (
 		<>
-			<AppBar position="sticky">
+			<AppBar position="sticky" data-testid="app">
 				<Container className={styles.container}>
 					<Link to={HomeRoutesEnum.HOME} className={styles.myCitiesLink}>
 						Главная

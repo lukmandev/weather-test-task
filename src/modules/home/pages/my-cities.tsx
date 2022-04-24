@@ -89,7 +89,7 @@ const MyCities = () => {
 		setModalOpen(false);
 	};
 	return (
-		<Container className={styles.container}>
+		<Container className={styles.container} data-testid="my-cities-page">
 			<Box className={styles.topSide}>
 				<Button variant="contained" onClick={handleModalOpen}>
 					Добавить модальное окно
